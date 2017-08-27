@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: dithered 1
+  m_Name: dithered with texture
   m_Shader: {fileID: 4800000, guid: b028f967597a35d48a480ae1832163af, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -62,6 +62,7 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DitherScale: 20
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -76,5 +77,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.447}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.39215687}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
