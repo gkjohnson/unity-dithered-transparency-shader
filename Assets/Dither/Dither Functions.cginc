@@ -7,11 +7,22 @@ float isDithered(float2 pos, float alpha) {
         16.0 / 17.0,  8.0 / 17.0, 14.0 / 17.0,  6.0 / 17.0
     };
 
-    pos.x *= _ScreenParams.x;
-    pos.y *= _ScreenParams.y;
     return alpha - DITHER_THRESHOLDS[pos.x % 4][pos.y % 4];
+}
+
+float isDithered(float2 pos, float alpha, sampler2D tex, float scale) {
+    pos.x -= _ScreenParams.x / 2;
+    pos.y -= _ScreenParams.y / 2;
+    pos.x /= scale;
+    pos.y /= scale;
+
+    return alpha - tex2D(tex, pos.xy).r;
 }
 
 void ditherClip(float2 pos, float alpha) {
     clip(isDithered(pos, alpha));
+}
+
+void ditherClip(float2 pos, float alpha, sampler2D tex, float scale) {
+    clip(isDithered(pos, alpha, tex, scale));
 }

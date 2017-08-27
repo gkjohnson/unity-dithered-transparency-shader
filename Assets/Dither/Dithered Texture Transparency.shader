@@ -1,9 +1,11 @@
-Shader "Dithered Transparent/Dithered"
+Shader "Dithered Transparent/Dithered From Texture"
 {
 	Properties 
 	{
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Main Texture", 2D) = "white" {}
+        _DitherScale("Dither Scale", Float) = 10
+        [NoScaleOffset]_DitherTex ("Dither Texture", 2D) = "white" {}
     }
 
     SubShader
@@ -24,6 +26,9 @@ Shader "Dithered Transparent/Dithered"
             float4 _MainTex_ST;			// For the Main Tex UV transform
             sampler2D _MainTex;			// Texture used for the line
             
+            float _DitherScale;
+            sampler2D _DitherTex;
+
             struct v2f
             {
                 float4	pos		: POSITION;
@@ -42,7 +47,7 @@ Shader "Dithered Transparent/Dithered"
             float4 frag(v2f i) : COLOR
             {
                 float4 col = _Color * tex2D(_MainTex, i.uv);
-                ditherClip(i.pos, col.a);
+                ditherClip(i.pos, col.a, _DitherTex, _DitherScale);
 
 	            return col;
             }
