@@ -55,7 +55,7 @@ Shader "Transparent/Dithered"
 
                 clip(_Color.a - thresh[samp.x][samp.y]);
 
-	            return _Color;
+	            return _Color * tex2D(_MainTex, i.uv);
             }
 
 			ENDCG
