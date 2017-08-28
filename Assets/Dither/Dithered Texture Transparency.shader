@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 Shader "Dithered Transparent/Dithered From Texture"
 {
 	Properties 
@@ -21,6 +23,8 @@ Shader "Dithered Transparent/Dithered From Texture"
             #pragma target 5.0
             #pragma vertex vert
             #pragma fragment frag
+            
+            uniform fixed4 _LightColor0;
 
             float4 _Color;
             float4 _MainTex_ST;			// For the Main Tex UV transform
@@ -31,17 +35,25 @@ Shader "Dithered Transparent/Dithered From Texture"
 
             struct v2f
             {
-                float4	pos		: POSITION;
-                float2  uv		: TEXCOORD0;
+                float4 pos		: POSITION;
+                float4 col      : COLOR;
+                float2 uv		: TEXCOORD0;
             };
 
             v2f vert(appdata_base v)
             {
-                v2f output;
-                output.pos = UnityObjectToClipPos(v.vertex);
-                output.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+                v2f o;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 
-                return output;
+                float4 norm = mul(unity_ObjectToWorld, v.normal);
+                float3 normalDirection = normalize(norm.xyz);
+                float4 AmbientLight = UNITY_LIGHTMODEL_AMBIENT;
+                float4 LightDirection = normalize(_WorldSpaceLightPos0);
+                float4 DiffuseLight = saturate(dot(LightDirection, -normalDirection))*_LightColor0;
+                o.col = float4(AmbientLight + DiffuseLight);
+
+                return o;
             }
 
             float4 frag(v2f i) : COLOR
@@ -49,7 +61,7 @@ Shader "Dithered Transparent/Dithered From Texture"
                 float4 col = _Color * tex2D(_MainTex, i.uv);
                 ditherClip(i.pos, col.a, _DitherTex, _DitherScale);
 
-	            return col;
+	            return col * i.col;
             }
 
 			ENDCG
