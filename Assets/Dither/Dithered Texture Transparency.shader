@@ -15,12 +15,10 @@ Shader "Dithered Transparent/Dithered From Texture"
         Tags{ "RenderType" = "Opaque" "Queue" = "Geometry" }
 
         Pass
-        {
-
+        {            
             CGPROGRAM
             #include "UnityCG.cginc"
             #include "Dither Functions.cginc"
-            #pragma target 5.0
             #pragma vertex vert
             #pragma fragment frag
             
@@ -46,7 +44,7 @@ Shader "Dithered Transparent/Dithered From Texture"
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 
-                float4 norm = mul(unity_ObjectToWorld, v.normal);
+                float4 norm = mul(unity_ObjectToWorld, v.normal); 
                 float3 normalDirection = normalize(norm.xyz);
                 float4 AmbientLight = UNITY_LIGHTMODEL_AMBIENT;
                 float4 LightDirection = normalize(_WorldSpaceLightPos0);
@@ -57,7 +55,7 @@ Shader "Dithered Transparent/Dithered From Texture"
             }
 
             float4 frag(v2f i) : COLOR
-            {
+            { 
                 float4 col = _Color * tex2D(_MainTex, i.uv);
                 ditherClip(i.pos, col.a, _DitherTex, _DitherScale);
 
@@ -67,4 +65,10 @@ Shader "Dithered Transparent/Dithered From Texture"
 			ENDCG
 		}
 	}
+
+    SubShader
+    {
+        Tags { "RenderType" = "ShadowCaster" }
+        UsePass "Hidden/Dithered Transparent/Shadow/SHADOW"
+    }
 }
