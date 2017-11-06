@@ -1,3 +1,7 @@
+#ifndef __DITHER_FUNCTIONS__
+#define __DITHER_FUNCTIONS__
+#include "UnityCG.cginc"
+
 // Returns > 0 if not clipped, < 0 if clipped based
 // on the dither
 // For use with the "clip" function
@@ -35,3 +39,4 @@ void ditherClip(float2 pos, float alpha) {
 void ditherClip(float2 pos, float alpha, sampler2D tex, float scale) {
     clip(isDithered(pos, alpha, tex, scale));
 }
+#endif
