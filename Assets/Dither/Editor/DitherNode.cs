@@ -4,7 +4,7 @@ using AmplifyShaderEditor;
 using System.IO;
 
 [Serializable]
-[NodeAttributes("Dither Transparency", "CAT", "TEST DESC")]
+[NodeAttributes("Dither Transparency", "Dither", "Dither and clip transparency")]
 public class DitherNode : ParentNode
 {
     const string CGINC_FILE = "Dither Functions.cginc";
@@ -14,7 +14,7 @@ public class DitherNode : ParentNode
     {
         base.CommonInit(uniqueId);
 
-        AddInputPort(WirePortDataType.COLOR, false, "texture");
+        AddInputPort(WirePortDataType.SAMPLER2D, false, "mask");
         AddInputPort(WirePortDataType.FLOAT, false, "alpha");
         AddInputPort(WirePortDataType.FLOAT2, false, "screenPos");
         AddOutputPort(WirePortDataType.FLOAT, "clip");
@@ -25,15 +25,11 @@ public class DitherNode : ParentNode
         UpdateCgincFile();
         dataCollector.AddToIncludes(UniqueId, _cgincFile);
 
-        Debug.Log("HERE");
-        Debug.Log(_cgincFile);
-
+        string maskValue = m_inputPorts[0].GenerateShaderForOutput(ref dataCollector, ignoreLocalvar);
         string alphaValue = m_inputPorts[1].GenerateShaderForOutput(ref dataCollector, ignoreLocalvar);
         string screenPosValue = m_inputPorts[2].GenerateShaderForOutput(ref dataCollector, ignoreLocalvar);
-
-        Debug.Log("AHA ");
-        Debug.Log(screenPosValue);
-        return "isDithered(" + screenPosValue + ", " + alphaValue + ")";
+        
+        return "ceil(isDithered(" + screenPosValue + ".xy * _ScreenParams.xy, " + alphaValue + "))";
     }
 
     void UpdateCgincFile()

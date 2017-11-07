@@ -9,7 +9,7 @@ float isDithered(float2 pos, float alpha) {
     // Define a dither threshold matrix which can
     // be used to define how a 4x4 set of pixels
     // will be dithered
-    float4x4 DITHER_THRESHOLDS =
+    float DITHER_THRESHOLDS[16] =
     {
         1.0 / 17.0,  9.0 / 17.0,  3.0 / 17.0, 11.0 / 17.0,
         13.0 / 17.0,  5.0 / 17.0, 15.0 / 17.0,  7.0 / 17.0,
@@ -17,7 +17,8 @@ float isDithered(float2 pos, float alpha) {
         16.0 / 17.0,  8.0 / 17.0, 14.0 / 17.0,  6.0 / 17.0
     };
 
-    return alpha - DITHER_THRESHOLDS[int(pos.x) % 4][int(pos.y) % 4];
+	int index = (int(pos.x) % 4) * 4 + int(pos.y) % 4;
+    return alpha - DITHER_THRESHOLDS[index];
 }
 
 // Returns whether the pixel should be discarded based
