@@ -17,7 +17,7 @@ float isDithered(float2 pos, float alpha) {
         16.0 / 17.0,  8.0 / 17.0, 14.0 / 17.0,  6.0 / 17.0
     };
 
-    return alpha - DITHER_THRESHOLDS[pos.x % 4][pos.y % 4];
+    return alpha - DITHER_THRESHOLDS[int(pos.x) % 4][int(pos.y) % 4];
 }
 
 // Returns whether the pixel should be discarded based
