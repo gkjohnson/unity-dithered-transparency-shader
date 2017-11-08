@@ -5,7 +5,7 @@ using System.IO;
 namespace AmplifyShaderEditor
 {
     [Serializable]
-    [NodeAttributes("Dither Transparency", "Dither", "Dither and clip transparency")]
+    [NodeAttributes("Dither Transparency", "Dither", "Applies a dither pattern in screen space based on the alpha.\n\n<b>Alpha</b> and <b>screenPos</b> are expected to be from [0, 1].\n\nIf <b>mask</b> is connected, then the texture is used in place of the dither pattern with <b>maskScale</b> specifying the number of pixels the mask should cover.")]
     public class DitherNode : ParentNode
     {
         const string CGINC_FILE = "Dither Functions.cginc";
