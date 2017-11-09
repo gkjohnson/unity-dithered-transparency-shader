@@ -19,3 +19,9 @@ The scale of the dither texture in screen-space pixels.
 
 ## Extending and Reuse
 The functions for performing the dither effect are available in the [Dither Functions.cginc](./Assets/Dither/Dither%20Functions.cginc) so they can easily be added to and used with other shaders and functions.
+
+### In Visual Shader Builders
+
+[Amplify Shader Editor](/docs/AmplifyShaderEditor.md)
+
+[ShaderForge](/docs/ShaderForge.md)
