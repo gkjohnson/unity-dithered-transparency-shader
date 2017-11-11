@@ -18,7 +18,7 @@ Set the code body to
 // screen space position in pixels
 float2 spos = (scoord / 2 + float2(0.5, 0.5)) * _ScreenParams.xy;
 
-// ShaderForge subtracts 0.5 from the 'clip' value
+// 0 for clip and 1 for opaque
 return ceil(isDithered(spos, alpha));
 ```
 
@@ -34,6 +34,6 @@ Set the code body to
 // screen space position in pixels
 float2 spos = (scoord / 2 + float2(0.5, 0.5)) * _ScreenParams.xy;
 
-// ShaderForge subtracts 0.5 from the 'clip' value
+// 0 for clip and 1 for opaque
 return ceil(isDithered(spos, alpha, mask, maskScale));
 ```
