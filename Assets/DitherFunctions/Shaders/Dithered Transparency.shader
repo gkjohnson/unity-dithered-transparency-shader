@@ -1,9 +1,9 @@
 Shader "Dithered Transparent/Dithered"
 {
-	Properties 
-	{
-		_Color ("Color", Color) = (1,1,1,1)
-		_MainTex ("Main Texture", 2D) = "white" {}
+    Properties 
+    {
+        _Color ("Color", Color) = (1,1,1,1)
+        _MainTex ("Main Texture", 2D) = "white" {}
     }
 
     SubShader
@@ -21,16 +21,16 @@ Shader "Dithered Transparent/Dithered"
 
             uniform fixed4 _LightColor0;
             float4 _Color;
-            float4 _MainTex_ST;			// For the Main Tex UV transform
-            sampler2D _MainTex;			// Texture used for the line
+            float4 _MainTex_ST;         // For the Main Tex UV transform
+            sampler2D _MainTex;         // Texture used for the line
             
             struct v2f
             {
-                float4 pos		: POSITION;
+                float4 pos      : POSITION;
                 float4 col      : COLOR;
-                float2 uv		: TEXCOORD0;
-				float4 spos		: TEXCOORD1;
-			};
+                float2 uv       : TEXCOORD0;
+                float4 spos     : TEXCOORD1;
+            };
 
             v2f vert(appdata_base v)
             {
@@ -44,7 +44,7 @@ Shader "Dithered Transparent/Dithered"
                 float4 LightDirection = normalize(_WorldSpaceLightPos0);
                 float4 DiffuseLight = saturate(dot(LightDirection, -normalDirection))*_LightColor0;
                 o.col = float4(AmbientLight + DiffuseLight);
-				o.spos = ComputeScreenPos(o.pos);
+                o.spos = ComputeScreenPos(o.pos);
 
                 return o;
             }
@@ -54,12 +54,12 @@ Shader "Dithered Transparent/Dithered"
                 float4 col = _Color * tex2D(_MainTex, i.uv);
                 ditherClip(i.spos.xy / i.spos.w, col.a);
 
-	            return col * i.col;
+                return col * i.col;
             }
 
-			ENDCG
-		}
-	}
+            ENDCG
+        }
+    }
 
     SubShader
     {

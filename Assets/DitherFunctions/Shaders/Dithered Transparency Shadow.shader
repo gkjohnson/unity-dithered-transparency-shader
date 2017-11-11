@@ -1,9 +1,9 @@
 Shader "Hidden/Dithered Transparent/Shadow"
 {
-	Properties 
-	{
-		_Color ("Color", Color) = (1,1,1,1)
-		_MainTex ("Main Texture", 2D) = "white" {}
+    Properties 
+    {
+        _Color ("Color", Color) = (1,1,1,1)
+        _MainTex ("Main Texture", 2D) = "white" {}
     }
 
     SubShader
@@ -21,15 +21,15 @@ Shader "Hidden/Dithered Transparent/Shadow"
             #pragma fragment frag
 
             float4 _Color;
-            float4 _MainTex_ST;			// For the Main Tex UV transform
-            sampler2D _MainTex;			// Texture used for the line
+            float4 _MainTex_ST;         // For the Main Tex UV transform
+            sampler2D _MainTex;         // Texture used for the line
             
             struct v2f
             {
-                float4 pos		: POSITION;
-                float2 uv		: TEXCOORD0;
-				float4 spos		: TEXCOORD1;
-			};
+                float4 pos      : POSITION;
+                float2 uv       : TEXCOORD0;
+                float4 spos     : TEXCOORD1;
+            };
 
             v2f vert(appdata_base v)
             {
@@ -45,10 +45,10 @@ Shader "Hidden/Dithered Transparent/Shadow"
                 float4 col = _Color * tex2D(_MainTex, i.uv);
                 ditherClip(i.spos.xy / i.spos.w, col.a);
 
-	            return float4(0,0,0,0); 
+                return float4(0,0,0,0); 
             }
 
-			ENDCG
-		}
-	}
+            ENDCG
+        }
+    }
 }
