@@ -16,7 +16,7 @@ Add the properties `scoord` as a `float2` and `alpha` as a `float`
 Set the code body to
 ```hlsl
 // screen space position in pixels
-float2 spos = (scoord / 2 + float2(0.5, 0.5)) * _ScreenParams.xy;
+float2 spos = (scoord / 2 + float2(0.5, 0.5));
 
 // 0 for clip and 1 for opaque
 return ceil(isDithered(spos, alpha));
@@ -32,7 +32,7 @@ Add `mask` as a `sampler2D` and `maskScale` as `float`
 Set the code body to
 ```hlsl
 // screen space position in pixels
-float2 spos = (scoord / 2 + float2(0.5, 0.5)) * _ScreenParams.xy;
+float2 spos = (scoord / 2 + float2(0.5, 0.5));
 
 // 0 for clip and 1 for opaque
 return ceil(isDithered(spos, alpha, mask, maskScale));
