@@ -5,7 +5,10 @@
 // Returns > 0 if not clipped, < 0 if clipped based
 // on the dither
 // For use with the "clip" function
+// pos is the fragment position in screen space from [0,1]
 float isDithered(float2 pos, float alpha) {
+	pos *= _ScreenParams.xy;
+
     // Define a dither threshold matrix which can
     // be used to define how a 4x4 set of pixels
     // will be dithered
@@ -23,10 +26,16 @@ float isDithered(float2 pos, float alpha) {
 
 // Returns whether the pixel should be discarded based
 // on the dither texture
+// pos is the fragment position in screen space from [0,1]
 float isDithered(float2 pos, float alpha, sampler2D tex, float scale) {
+	pos *= _ScreenParams.xy;
+
+	// offset so we're centered
     pos.x -= _ScreenParams.x / 2;
     pos.y -= _ScreenParams.y / 2;
-    pos.x /= scale;
+    
+	// scale the texture
+	pos.x /= scale;
     pos.y /= scale;
 
     return alpha - tex2D(tex, pos.xy).r;

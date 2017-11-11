@@ -28,7 +28,8 @@ Shader "Hidden/Dithered Transparent/Shadow"
             {
                 float4 pos		: POSITION;
                 float2 uv		: TEXCOORD0;
-            };
+				float4 spos		: TEXCOORD1;
+			};
 
             v2f vert(appdata_base v)
             {
@@ -42,7 +43,7 @@ Shader "Hidden/Dithered Transparent/Shadow"
             float4 frag(v2f i) : COLOR
             {
                 float4 col = _Color * tex2D(_MainTex, i.uv);
-                ditherClip(i.pos, col.a);
+                ditherClip(i.spos.xy / i.spos.w, col.a);
 
 	            return float4(0,0,0,0); 
             }

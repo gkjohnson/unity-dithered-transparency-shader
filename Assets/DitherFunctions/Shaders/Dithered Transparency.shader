@@ -29,7 +29,8 @@ Shader "Dithered Transparent/Dithered"
                 float4 pos		: POSITION;
                 float4 col      : COLOR;
                 float2 uv		: TEXCOORD0;
-            };
+				float4 spos		: TEXCOORD1;
+			};
 
             v2f vert(appdata_base v)
             {
@@ -43,6 +44,7 @@ Shader "Dithered Transparent/Dithered"
                 float4 LightDirection = normalize(_WorldSpaceLightPos0);
                 float4 DiffuseLight = saturate(dot(LightDirection, -normalDirection))*_LightColor0;
                 o.col = float4(AmbientLight + DiffuseLight);
+				o.spos = ComputeScreenPos(o.pos);
 
                 return o;
             }
@@ -50,7 +52,7 @@ Shader "Dithered Transparent/Dithered"
             float4 frag(v2f i) : COLOR
             {
                 float4 col = _Color * tex2D(_MainTex, i.uv);
-                ditherClip(i.pos, col.a);
+                ditherClip(i.spos.xy / i.spos.w, col.a);
 
 	            return col * i.col;
             }
