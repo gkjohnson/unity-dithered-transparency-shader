@@ -19,7 +19,7 @@ Set the code body to
 float2 spos = (scoord / 2 + float2(0.5, 0.5)) * _ScreenParams.xy;
 
 // ShaderForge subtracts 0.5 from the 'clip' value
-return isDithered(spos, alpha) + 0.5;
+return ceil(isDithered(spos, alpha));
 ```
 
 #### For Clip Mask
@@ -35,5 +35,5 @@ Set the code body to
 float2 spos = (scoord / 2 + float2(0.5, 0.5)) * _ScreenParams.xy;
 
 // ShaderForge subtracts 0.5 from the 'clip' value
-return isDithered(spos, alpha, mask, maskScale) + 0.5;
+return ceil(isDithered(spos, alpha, mask, maskScale));
 ```
