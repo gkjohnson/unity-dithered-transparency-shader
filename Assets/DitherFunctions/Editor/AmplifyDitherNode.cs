@@ -36,11 +36,11 @@ public class AmplifyDitherNode : ParentNode
 
         if (m_inputPorts[0].ConnectionCount == 0)
         {
-            return "ceil(isDithered(" + screenPosValue + ".xy * _ScreenParams.xy, " + alphaValue + "))";
+            return "ceil(isDithered(" + screenPosValue + ".xy, " + alphaValue + "))";
         }
         else
         {
-            return "ceil(isDithered(" + screenPosValue + ".xy * _ScreenParams.xy, " + alphaValue + ", " + maskValue + ", " + maskScale + "))";
+            return "ceil(isDithered(" + screenPosValue + ".xy, " + alphaValue + ", " + maskValue + ", " + maskScale + "))";
         }
     }
 
