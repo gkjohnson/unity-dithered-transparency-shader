@@ -27,5 +27,4 @@ The functions for performing the dither effect are available in the [Dither Func
 [ShaderForge](/docs/ShaderForge.md)
 
 ## TODO
-- Add an example for ShaderForge with textures
 - Update the dither functions to take [0,1] screen coordinates
