@@ -38,7 +38,10 @@ float isDithered(float2 pos, float alpha, sampler2D tex, float scale) {
     pos.x /= scale;
     pos.y /= scale;
 
-    return alpha - tex2D(tex, pos.xy).r;
+	// ensure that we clip if the alpha is zero by
+	// subtracting a small value when alpha == 0, because
+	// the clip function only clips when < 0
+    return alpha - tex2D(tex, pos.xy).r - 0.0001 * (1 - ceil(alpha));
 }
 
 // Helpers that call the above functions and clip if necessary
