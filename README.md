@@ -18,7 +18,7 @@ Texture defining the dither pattern. The "red" channel is used from the texture 
 The scale of the dither texture in screen-space pixels.
 
 ## Extending and Reuse
-The functions for performing the dither effect are available in the [Dither Functions.cginc](./Assets/Dither/Dither%20Functions.cginc) so they can easily be added to and used with other shaders and functions.
+The functions for performing the dither effect are available in the [Dither Functions.cginc](./Assets/DitherFunctions/Shaders/Dither%20Functions.cginc) so they can easily be added to and used with other shaders and functions.
 
 ### In Visual Shader Builders
 
